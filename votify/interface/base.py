@@ -112,9 +112,10 @@ class SpotifyBaseInterface:
             media_type=media_type,
         )
 
-        playback_info = next(iter(playback_info_response.get("media", {})), None)
-        if not playback_info:
+        playback_info_key = next(iter(playback_info_response.get("media", {})), None)
+        if not playback_info_key:
             return None
+        playback_info = playback_info_response["media"][playback_info_key]
 
         if self.prefer_video and playback_info.get("video_version_uri"):
             playback_info = playback_info_response[playback_info["video_version_uri"]]
