@@ -83,7 +83,7 @@ class SpotifyEpisodeInterface(SpotifyAudioInterface):
             track=next(
                 (
                     index + 1
-                    for index, item in enumerate(show_items)
+                    for index, item in enumerate(reversed(show_items))
                     if item["entity"]["_uri"] == episode_data["uri"]
                 ),
                 None,
