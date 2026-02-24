@@ -15,33 +15,49 @@ class VotifyUnsupportedMediaTypeException(VotiyException):
         self.media_type = media_type
 
 
-class VotifyDrmDisabledException(VotiyException):
-    def __init__(self, media_id: str, media_metadata: dict | None = None):
-        super().__init__(f"DRM is disabled, cannot process media: {media_id}")
+class VotifyMediaException(VotiyException):
+    def __init__(self, message: str, media_id: str, media_metadata: dict | None = None):
+        super().__init__(f"{message}: {media_id}")
 
         self.media_id = media_id
         self.media_metadata = media_metadata
 
 
-class VotifyMediaNotFoundException(VotiyException):
+class VotifyDrmDisabledException(VotifyMediaException):
     def __init__(self, media_id: str, media_metadata: dict | None = None):
-        super().__init__(f"Media not found: {media_id}")
+        super().__init__(
+            "DRM is disabled, cannot process media",
+            media_id=media_id,
+            media_metadata=media_metadata,
+        )
 
-        self.media_id = media_id
-        self.media_metadata = media_metadata
 
-
-class VotifyMediaUnstreamableException(VotiyException):
+class VotifyMediaNotFoundException(VotifyMediaException):
     def __init__(self, media_id: str, media_metadata: dict | None = None):
-        super().__init__(f"Media is not streamable: {media_id}")
+        super().__init__(
+            "Media not found",
+            media_id=media_id,
+            media_metadata=media_metadata,
+        )
 
-        self.media_id = media_id
-        self.media_metadata = media_metadata
+
+class VotifyMediaUnstreamableException(VotifyMediaException):
+    def __init__(self, media_id: str, media_metadata: dict | None = None):
+        super().__init__(
+            "Media is not streamable",
+            media_id=media_id,
+            media_metadata=media_metadata,
+        )
 
 
-class VotifyMediaAudioQualityNotAvailableException(VotiyException):
-    def __init__(self, media_id: str, playback_info: dict | None = None):
-        super().__init__(f"Selected audio quality is not available: {media_id}")
-
-        self.media_id = media_id
-        self.playback_info = playback_info
+class VotifyMediaAudioQualityNotAvailableException(VotifyMediaException):
+    def __init__(
+        self,
+        media_id: str,
+        media_metadata: dict | None = None,
+    ):
+        super().__init__(
+            "Selected audio quality is not available",
+            media_id=media_id,
+            media_metadata=media_metadata,
+        )

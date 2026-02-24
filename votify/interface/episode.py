@@ -3,7 +3,8 @@ import logging
 from .audio import SpotifyAudioInterface
 from .constants import COVER_SIZE_ID_MAP_EPISODE, DEFAULT_EPISODE_DECRYPTION_KEY
 from .enums import MediaType
-from .types import MediaTags, SpotifyMedia, DecryptionKey, DecryptionKeyAv
+from .exceptions import VotifyMediaAudioQualityNotAvailableException
+from .types import DecryptionKey, DecryptionKeyAv, MediaTags, SpotifyMedia
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +48,12 @@ class SpotifyEpisodeInterface(SpotifyAudioInterface):
             episode_data["coverArt"]["sources"][0]["url"]
         )
 
-        media.stream_info = await self.get_stream_info(playback_info, True)
+        try:
+            media.stream_info = await self.get_stream_info(playback_info, True)
+        except VotifyMediaAudioQualityNotAvailableException as e:
+            e.media_metadata = episode_data
+            raise
+
         media.decryption_key = DecryptionKeyAv(
             DecryptionKey(
                 decryption_key=DEFAULT_EPISODE_DECRYPTION_KEY,

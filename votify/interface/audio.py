@@ -31,7 +31,6 @@ class SpotifyAudioInterface(SpotifyBaseInterface):
         ):
             raise VotifyMediaAudioQualityNotAvailableException(
                 media_id=playback_info["metadata"]["uri"].split(":")[-1],
-                playback_info=playback_info,
             )
 
         file_id = None
