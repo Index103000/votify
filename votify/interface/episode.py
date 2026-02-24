@@ -89,6 +89,7 @@ class SpotifyEpisodeInterface(SpotifyAudioInterface):
                 None,
             ),
             track_total=len(show_items),
+            url=f"https://open.spotify.com/episode/{episode_data['uri'].split(':')[-1]}",
         )
 
         logger.debug(f"Parsed episode tags: {tags}")
