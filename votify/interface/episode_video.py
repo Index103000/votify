@@ -1,8 +1,8 @@
 import logging
-from .types import DecryptionKey, DecryptionKeyAv, MediaTags, SpotifyMedia
+
 from .episode import SpotifyEpisodeInterface
 from .exceptions import VotifyDrmDisabledException
-
+from .types import SpotifyMedia
 from .video import SpotifyVideoInterface
 
 logger = logging.getLogger(__name__)
