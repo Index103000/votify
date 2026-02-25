@@ -46,6 +46,7 @@ class SpotifyMusicVideoInterface(SpotifyVideoInterface):
             date=self.parse_date(iso_date),
             isrc=isrc,
             label=label,
+            media_id=track_data["uri"].split(":")[-1],
             producer=producer,
             rating=rating,
             url=f"https://open.spotify.com/track/{track_data['uri'].split(':')[-1]}",

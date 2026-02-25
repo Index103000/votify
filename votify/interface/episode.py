@@ -75,6 +75,7 @@ class SpotifyEpisodeInterface(SpotifyAudioInterface):
                 episode_data["releaseDate"]["isoString"]
             ),
             description=episode_data.get("description"),
+            media_id=episode_data["uri"].split(":")[-1],
             media_type=MediaType.PODCAST,
             rating=SpotifyAudioInterface.parse_rating(
                 episode_data["contentRating"]["label"]

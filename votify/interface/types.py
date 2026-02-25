@@ -49,6 +49,7 @@ class PlaylistTags:
 
 @dataclass
 class MediaTags:
+    media_id: str = None
     album: str = None
     album_artist: str = None
     artist: str = None

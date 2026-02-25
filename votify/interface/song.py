@@ -126,6 +126,7 @@ class SpotifySongInterface(SpotifyAudioInterface):
             isrc=isrc,
             label=label,
             lyrics=lyrics,
+            media_id=track_data["uri"].split(":")[-1],
             media_type=MediaType.SONG,
             producer=producer,
             rating=rating,
