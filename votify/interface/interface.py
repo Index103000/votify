@@ -3,14 +3,15 @@ from typing import AsyncGenerator
 
 from .audio import SpotifyAudioInterface
 from .episode import SpotifyEpisodeInterface
+from .episode_video import SpotifyEpisodeVideoInterface
 from .exceptions import (
     VotifyDrmDisabledException,
     VotifyMediaNotFoundException,
     VotifyMediaUnstreamableException,
     VotifyUnsupportedMediaTypeException,
 )
+from .music_video import SpotifyMusicVideoInterface
 from .song import SpotifySongInterface
-from .episode_video import SpotifyEpisodeVideoInterface
 from .types import SpotifyMedia
 
 logger = logging.getLogger(__name__)
@@ -22,11 +23,13 @@ class SpotifyInterface:
         base: SpotifyAudioInterface,
         song: SpotifySongInterface,
         episode: SpotifyEpisodeInterface,
+        music_video: SpotifyMusicVideoInterface,
         episode_video: SpotifyEpisodeVideoInterface,
     ) -> None:
         self.base = base
         self.song = song
         self.episode = episode
+        self.music_video = music_video
         self.episode_video = episode_video
 
     async def _get_track_media(
@@ -56,7 +59,7 @@ class SpotifyInterface:
         assert playback_info, "Playback info should be available for playable track"
 
         if self.base.is_video(playback_info):
-            return await self.music_video._proccess_media(
+            return await self.music_video.proccess_media(
                 playback_info=playback_info,
                 track_data=(
                     track_data
