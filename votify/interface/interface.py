@@ -61,10 +61,13 @@ class SpotifyInterface:
         if self.base.is_video(playback_info):
             return await self.music_video.proccess_media(
                 playback_info=playback_info,
-                track_data=(
-                    track_data
+                **(
+                    {
+                        "track_data": track_data,
+                        "album_data": album_data,
+                    }
                     if playback_info["metadata"]["uri"] == track_data["uri"]
-                    else None
+                    else {}
                 ),
             )
 
