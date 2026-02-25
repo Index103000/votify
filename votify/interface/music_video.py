@@ -82,10 +82,10 @@ class SpotifyMusicVideoInterface(SpotifyVideoInterface):
 
         media.media_metadata = track_data
 
-        media.tags = self.parse_tags(track_data, album_data)
+        media.tags = await self.parse_tags(track_data, album_data)
 
         media.cover_url = self.parse_cover_url(
-            track_data["coverArt"]["sources"][0]["url"]
+            album_data["coverArt"]["sources"][0]["url"]
         )
 
         media.stream_info = await self.get_stream_info(playback_info)
