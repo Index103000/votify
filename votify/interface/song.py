@@ -145,7 +145,8 @@ class SpotifySongInterface(SpotifyAudioInterface):
 
         return cover_url
 
-    def _parse_copyright(self, copyright_items: list[dict]) -> str | None:
+    @staticmethod
+    def _parse_copyright(copyright_items: list[dict]) -> str | None:
         return next(
             (item["text"] for item in copyright_items if item["type"] == "P"),
             next(
