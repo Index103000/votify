@@ -55,7 +55,6 @@ class MediaTags:
     description: str = None
     disc: int = None
     disc_total: int = None
-    genre: str = None
     isrc: str = None
     label: str = None
     lyrics: str = None
@@ -107,7 +106,6 @@ class MediaTags:
             "\xa9day": date_mp4,
             "desc": self.description,
             "disk": disc_mp4,
-            "\xa9gen": self.genre,
             "----:com.apple.iTunes:ISRC": (
                 MP4FreeForm(self.isrc.encode("utf-8"))
                 if self.isrc is not None
@@ -154,7 +152,6 @@ class MediaTags:
             "YEAR": [date_flac],
             "DISCNUMBER": [str(self.disc)],
             "DISCTOTAL": [str(self.disc_total)],
-            "GENRE": [self.genre],
             "ISRC": [self.isrc],
             "LABEL": [self.label],
             "LYRICS": [self.lyrics],
