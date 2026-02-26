@@ -173,9 +173,9 @@ async def main(config: CliConfig):
                 logger.error(url_progress + f" {str(e)}")
                 break
             except VotifyMediaException as e:
-                media_title = (
-                    e.media_metadata["name"] if e.media_metadata else "Unknown Title"
-                )
+                media_title = "Unknown Title"
+                if e.media_metadata and e.media_metadata.get("name"):
+                    media_title = e.media_metadata["name"]
                 logger.warning(
                     download_queue_progress + f' Skipping "{media_title}": {str(e)}'
                 )
@@ -197,24 +197,20 @@ async def main(config: CliConfig):
                 await downloader.download(item)
 
                 await asyncio.sleep(config.wait_interval)
-            except StopAsyncIteration:
-                break
-            except VotifyDownloaderException as e:
+            except Exception as e:
                 media_title = (
                     item.media.media_metadata["name"] if item else "Unknown Title"
                 )
-                logger.warning(
-                    download_queue_progress + f' Skipping "{media_title}": {str(e)}'
-                )
-            except Exception:
-                error_count += 1
-                media_title = (
-                    item.media.media_metadata["name"] if item else "Unknown Title"
-                )
-                logger.error(
-                    download_queue_progress + f' Error downloading "{media_title}"',
-                    exc_info=not config.no_exceptions,
-                )
+                if isinstance(e, VotifyDownloaderException):
+                    logger.warning(
+                        download_queue_progress + f' Skipping "{media_title}": {str(e)}'
+                    )
+                else:
+                    error_count += 1
+                    logger.error(
+                        download_queue_progress + f' Error downloading "{media_title}"',
+                        exc_info=not config.no_exceptions,
+                    )
             finally:
                 download_index += 1
 
