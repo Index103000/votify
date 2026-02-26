@@ -215,6 +215,8 @@ class SpotifyInterface:
                 media.playlist_metadata = playlist_data
                 media.playlist_tags = self.base.get_playlist_tags(playlist_data, index)
 
+                yield media
+
     async def _get_artist_media(
         self,
         media_id: str,
