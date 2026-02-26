@@ -40,7 +40,7 @@ class SpotifyBaseDownloader:
         single_disc_file_template: str = "{track:02d} {title}",
         multi_disc_file_template: str = "{disc}-{track:02d} {title}",
         no_album_file_template: str = "{title}",
-        playlist_file_template: str = "Playlists/{artist}/{title}",
+        playlist_file_template: str = "Playlists/{playlist_artist}/{playlist_title}",
         date_tag_template: str = "%Y-%m-%dT%H:%M:%SZ",
         exclude_tags: list[str] | None = None,
         truncate: int | None = None,
@@ -197,11 +197,11 @@ class SpotifyBaseDownloader:
             is_folder = i < len(template_parts) - 1
             formatted_part = CustomStringFormatter().format(
                 part,
-                artist=(tags.artist, "Unknown Playlist Artist"),
-                id=(tags.id, "Unknown Playlist ID"),
-                title=(tags.title, "Unknown Playlist Title"),
-                track=(tags.track, ""),
-                track_total=(tags.track_total, ""),
+                playlist_artist=(tags.artist, "Unknown Playlist Artist"),
+                playlist_id=(tags.id, "Unknown Playlist ID"),
+                playlist_title=(tags.title, "Unknown Playlist Title"),
+                playlist_track=(tags.track, ""),
+                playlist_track_total=(tags.track_total, ""),
             )
             sanitized_formatted_part = self.sanitize_string(
                 formatted_part,
