@@ -27,7 +27,7 @@ class VotifyMediaException(VotifyInterfaceException):
         self.media_metadata = media_metadata
 
 
-class VotifyDrmDisabledException(VotifyInterfaceException):
+class VotifyDrmDisabledException(VotifyMediaException):
     def __init__(self, media_id: str, media_metadata: dict | None = None):
         super().__init__(
             "DRM is disabled, cannot process media",
@@ -36,7 +36,7 @@ class VotifyDrmDisabledException(VotifyInterfaceException):
         )
 
 
-class VotifyMediaNotFoundException(VotifyInterfaceException):
+class VotifyMediaNotFoundException(VotifyMediaException):
     def __init__(self, media_id: str, media_metadata: dict | None = None):
         super().__init__(
             "Media not found",
@@ -45,7 +45,7 @@ class VotifyMediaNotFoundException(VotifyInterfaceException):
         )
 
 
-class VotifyMediaUnstreamableException(VotifyInterfaceException):
+class VotifyMediaUnstreamableException(VotifyMediaException):
     def __init__(self, media_id: str, media_metadata: dict | None = None):
         super().__init__(
             "Media is not streamable",
@@ -54,7 +54,7 @@ class VotifyMediaUnstreamableException(VotifyInterfaceException):
         )
 
 
-class VotifyMediaAudioQualityNotAvailableException(VotifyInterfaceException):
+class VotifyMediaAudioQualityNotAvailableException(VotifyMediaException):
     def __init__(
         self,
         media_id: str,
