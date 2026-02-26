@@ -176,9 +176,11 @@ The file is created automatically on first run. Command-line arguments override 
 | **Template** | | |
 | `--album-folder-template` / `album_folder_template` | Folder template for album tracks | `{album_artist}/{album}` |
 | `--compilation-folder-template` / `compilation_folder_template` | Folder template for compilation tracks | `Compilations/{album}` |
+| `--podcast-folder-template` / `podcast_folder_template` | Folder template for podcast episodes | `Podcasts/{album}` |
 | `--no-album-folder-template` / `no_album_folder_template` | Folder template for tracks not in an album | `{artist}/Unknown Album` |
 | `--single-disc-file-template` / `single_disc_file_template` | File template for single-disc album tracks | `{track:02d} {title}` |
 | `--multi-disc-file-template` / `multi_disc_file_template` | File template for multi-disc album tracks | `{disc}-{track:02d} {title}` |
+| `--podcast-file-template` / `podcast_file_template` | File template for podcast episodes | `{track:02d} {title}` |
 | `--no-album-file-template` / `no_album_file_template` | File template for tracks not in an album | `{title}` |
 | `--playlist-file-template` / `playlist_file_template` | File template for M3U8 playlists | `Playlists/{playlist_artist}/{playlist_title}` |
 | `--date-tag-template` / `date_tag_template` | Date tag template | `%Y-%m-%dT%H:%M:%SZ` |
