@@ -1,4 +1,4 @@
-# Votify (Glomatico's Spotify Downloader)
+# Votify
 
 [![PyPI version](https://img.shields.io/pypi/v/votify?color=blue)](https://pypi.org/project/votify/)
 [![Python versions](https://img.shields.io/pypi/pyversions/votify)](https://pypi.org/project/votify/)
