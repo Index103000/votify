@@ -44,8 +44,14 @@ class SpotifyDownloader:
         self.skip_processing = skip_processing
         self.skip_cleanup = skip_cleanup
 
-    async def get_download_item(self, url: str) -> AsyncGenerator[DownloadItem, None]:
+    async def get_download_item(
+        self, url: str
+    ) -> AsyncGenerator[DownloadItem | BaseException, None]:
         async for media in self.base.interface.get_media_by_url(url):
+            if isinstance(media, BaseException):
+                yield media
+                continue
+
             if media.tags.media_type in {
                 MediaType.SONG,
                 MediaType.PODCAST,
