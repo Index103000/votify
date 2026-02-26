@@ -244,6 +244,11 @@ class SpotifyVideoInterface(SpotifyBaseInterface):
             profile_audio["file_type"],
         )
 
+        is_webm = any(
+            profile["mime_type"].endswith("webm")
+            for profile in [profile_video, profile_audio]
+        )
+
         stream_info = StreamInfoAv(
             audio_track=StreamInfo(
                 stream_url=audio_urls,
@@ -253,7 +258,7 @@ class SpotifyVideoInterface(SpotifyBaseInterface):
                 stream_url=video_urls,
                 widevine_pssh=widevine_pssh,
             ),
-            file_format="mp4" if self.video_format == VideoFormat.MP4 else "webm",
+            file_format="webm" if is_webm else "mp4",
         )
 
         logger.debug(f"Generated stream info: {stream_info}")
