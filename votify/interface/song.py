@@ -35,7 +35,11 @@ class SpotifySongInterface(SpotifyAudioInterface):
             track_data = track_response["data"]["trackUnion"]
 
         if not album_data:
-            if track_data["albumOfTrack"].get("tracks"):
+            if (
+                track_data["albumOfTrack"].get("tracks")
+                and len(track_data["albumOfTrack"]["tracks"]["items"])
+                == track_data["albumOfTrack"]["tracks"]["totalCount"]
+            ):
                 album_data, album_items = (
                     track_data["albumOfTrack"],
                     track_data["albumOfTrack"]["tracks"]["items"],
