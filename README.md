@@ -199,19 +199,27 @@ The file is created automatically on first run. Command-line arguments override 
 
 ### Template variables
 
-The following variables can be used in template folder/file options and in the `exclude_tags` list:
+Tags usable in template folder/file options and in the `exclude_tags` list:
 
 - `album`, `album_artist`
 - `artist`
-- `compilation`, `composer`, `copyright`, `cover`
+- `composer`
+- `date` (supports strftime format: `{date:%Y}`)
 - `disc`, `disc_total`
 - `isrc`
-- `label`, `lyrics`
+- `label`
+- `media_id`
 - `media_type`
-- `playlist_artist`, `playlist_title`, `playlist_track`
+- `playlist_id`, `playlist_artist`, `playlist_title`, `playlist_track`
 - `producer`, `publisher`
-- `rating`, `release_date`, `release_year`
+- `rating`
 - `title`, `track`, `track_total`
+
+Tags usable in the `exclude_tags` list only:
+
+- `compilation`, `copyright`, `cover`
+- `description`
+- `lyrics`
 - `url`
 
 ### Cover sizes
