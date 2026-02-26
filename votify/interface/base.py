@@ -68,6 +68,7 @@ class SpotifyBaseInterface:
             self.cdm.MAX_NUM_OF_SESSIONS = float("inf")
         else:
             self.cdm = None
+            self.no_drm = True
 
     def parse_url_info(self, url: str) -> SpotifyUrlInfo:
         match = URL_INFO_RE.match(url)
