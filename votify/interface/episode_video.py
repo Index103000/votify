@@ -41,6 +41,7 @@ class SpotifyEpisodeVideoInterface(SpotifyVideoInterface):
         media.tags = await SpotifyEpisodeInterface.parse_tags(
             episode_data,
             show_items,
+            True,
         )
 
         media.cover_url = self.parse_cover_url(
