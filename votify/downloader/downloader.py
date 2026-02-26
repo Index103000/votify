@@ -160,6 +160,13 @@ class SpotifyDownloader:
         if self.skip_processing:
             return
 
+        if item.playlist_file_path and item.final_path and self.save_playlist_file:
+            self.base.update_playlist_file(
+                item.playlist_file_path,
+                item.final_path,
+                item.media.playlist_tags.track,
+            )
+
         if item.cover_path and self.save_cover_file:
             cover_bytes = await self.base.get_cover_bytes(
                 item.media.cover_url,
@@ -193,11 +200,6 @@ class SpotifyDownloader:
             self._move_to_final_path(
                 item.staged_path,
                 item.final_path,
-            )
-        if item.playlist_file_path and self.save_playlist_file:
-            self.base.update_playlist_file(
-                item.playlist_file_path,
-                item.media.playlist_tags,
             )
 
     def _write_cover_file(self, cover_path: str, cover_bytes: bytes) -> None:
