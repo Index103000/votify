@@ -30,12 +30,12 @@ class DecryptionKeyAv:
 class StreamInfo:
     stream_url: str | list[str]
     widevine_pssh: str
+    file_format: str
 
 
 @dataclass
 class StreamInfoAv:
     audio_track: StreamInfo
-    file_format: str
     video_track: StreamInfo = None
 
 
