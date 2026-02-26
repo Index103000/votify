@@ -41,6 +41,7 @@ class StreamInfoAv:
 
 @dataclass
 class PlaylistTags:
+    id: str = None
     artist: str = None
     title: str = None
     track: int = None

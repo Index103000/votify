@@ -128,6 +128,7 @@ class SpotifyBaseInterface:
 
     def get_playlist_tags(self, playlist_data: dict, track: int) -> PlaylistTags:
         return PlaylistTags(
+            id=playlist_data["uri"].split(":")[-1],
             artist=playlist_data["ownerV2"]["data"]["name"],
             title=playlist_data["name"],
             track=track,
