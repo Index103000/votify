@@ -20,15 +20,15 @@ class SpotifyBaseInterface:
         cover_size: CoverSize = CoverSize.EXTRA_LARGE,
         prefer_video: bool = False,
         no_drm: bool = False,
-        disallowed_media_types: list[str] | None = None,
         wvd_path: str | None = "./device.wvd",
+        disallowed_media_types: list[str] | None = None,
     ) -> None:
         self.api = api
         self.cover_size = cover_size
         self.prefer_video = prefer_video
         self.no_drm = no_drm
-        self.disallowed_media_types = disallowed_media_types or []
         self.wvd_path = wvd_path
+        self.disallowed_media_types = disallowed_media_types or []
 
         self._initialize_cdm()
 
