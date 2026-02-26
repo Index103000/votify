@@ -58,25 +58,28 @@ class SpotifyInterface:
         )
         assert playback_info, "Playback info should be available for playable track"
 
-        if self.base.is_video(playback_info):
-            return await self.music_video.proccess_media(
-                playback_info=playback_info,
-                **(
-                    {
-                        "track_data": track_data,
-                        "album_data": album_data,
-                    }
-                    if playback_info["metadata"]["uri"] == track_data["uri"]
-                    else {}
-                ),
-            )
+        try:
+            if self.base.is_video(playback_info):
+                return await self.music_video.proccess_media(
+                    playback_info=playback_info,
+                    **(
+                        {
+                            "track_data": track_data,
+                            "album_data": album_data,
+                        }
+                        if playback_info["metadata"]["uri"] == track_data["uri"]
+                        else {}
+                    ),
+                )
 
-        return await self.song.proccess_media(
-            playback_info=playback_info,
-            track_data=track_data,
-            album_data=album_data,
-            album_items=album_items,
-        )
+            return await self.song.proccess_media(
+                playback_info=playback_info,
+                track_data=track_data,
+                album_data=album_data,
+                album_items=album_items,
+            )
+        except BaseException as e:
+            return e
 
     async def _get_episode_media(
         self,
@@ -101,20 +104,23 @@ class SpotifyInterface:
         )
         assert playback_info, "Playback info should be available for playable episode"
 
-        if self.base.is_video(playback_info):
-            return await self.episode_video.proccess_media(
+        try:
+            if self.base.is_video(playback_info):
+                return await self.episode_video.proccess_media(
+                    playback_info=playback_info,
+                    episode_data=episode_data,
+                    show_data=show_data,
+                    show_items=show_items,
+                )
+
+            return await self.episode.proccess_media(
                 playback_info=playback_info,
                 episode_data=episode_data,
                 show_data=show_data,
                 show_items=show_items,
             )
-
-        return await self.episode.proccess_media(
-            playback_info=playback_info,
-            episode_data=episode_data,
-            show_data=show_data,
-            show_items=show_items,
-        )
+        except BaseException as e:
+            return e
 
     async def _get_album_media(
         self,
