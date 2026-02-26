@@ -67,7 +67,10 @@ class SpotifyApi:
         return cookie_dict
 
     @classmethod
-    async def create_from_netscape_cookies(cls, cookies_path: str) -> "SpotifyApi":
+    async def create_from_netscape_cookies(
+        cls,
+        cookies_path: str = "./cookies.txt",
+    ) -> "SpotifyApi":
         cookies = cls._parse_cookies(cookies_path)
         sp_dc = cookies.get("sp_dc")
         if sp_dc is None:
