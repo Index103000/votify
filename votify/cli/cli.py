@@ -12,14 +12,14 @@ from ..api.api import SpotifyApi
 from ..downloader.audio import SpotifyAudioDownloader
 from ..downloader.base import SpotifyBaseDownloader
 from ..downloader.downloader import SpotifyDownloader
+from ..downloader.exceptions import VotifyDownloaderException
 from ..downloader.video import SpotifyVideoDownloader
 from ..interface.audio import SpotifyAudioInterface
 from ..interface.base import SpotifyBaseInterface
 from ..interface.episode import SpotifyEpisodeInterface
-from ..interface.exceptions import VotifyUrlParseException, VotifyMediaException
 from ..interface.episode_video import SpotifyEpisodeVideoInterface
+from ..interface.exceptions import VotifyMediaException, VotifyUrlParseException
 from ..interface.interface import SpotifyInterface
-from ..downloader.exceptions import VotifyDownloaderException
 from ..interface.music_video import SpotifyMusicVideoInterface
 from ..interface.song import SpotifySongInterface
 from ..interface.video import SpotifyVideoInterface
@@ -156,20 +156,21 @@ async def main(config: CliConfig):
         url_progress = click.style(f"[URL {url_index}/{len(urls)}]", dim=True)
         logger.info(url_progress + f' Processing "{url}"')
         download_queue = downloader.get_download_item(url)
-        download_index = 0
+        download_index = 1
         while True:
             item = None
+            download_queue_progress = click.style(
+                f"[Track {download_index}]",
+                dim=True,
+            )
             try:
                 item = await download_queue.__anext__()
-                download_queue_progress = click.style(
-                    f"[Track {download_index}]",
-                    dim=True,
-                )
                 media_title = item.media.media_metadata["name"]
                 logger.info(download_queue_progress + f' Downloading "{media_title}"')
 
                 await downloader.download(item)
 
+                await asyncio.sleep(config.wait_interval)
                 download_index += 1
             except StopAsyncIteration:
                 break
