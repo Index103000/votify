@@ -171,7 +171,6 @@ async def main(config: CliConfig):
                 await downloader.download(item)
 
                 await asyncio.sleep(config.wait_interval)
-                download_index += 1
             except StopAsyncIteration:
                 break
             except VotifyUrlParseException as e:
@@ -200,5 +199,7 @@ async def main(config: CliConfig):
                     download_queue_progress + f' Error downloading "{media_title}"',
                     exc_info=not config.no_exceptions,
                 )
+            finally:
+                download_index += 1
 
     logger.info(f"Finished with {error_count} error(s)")
