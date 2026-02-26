@@ -27,12 +27,14 @@ class MediaType(Enum):
     SONG = 1
     MUSIC_VIDEO = 6
     PODCAST = 21
-    PODCAST_VIDEO = 21
+    PODCAST_VIDEO = 0
 
     def __str__(self) -> str:
         return MEDIA_TYPE_STR_MAP[self.value]
 
     def __int__(self) -> int:
+        if self.value == 0:
+            return 21
         return self.value
 
 
