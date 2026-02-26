@@ -82,7 +82,7 @@ class MediaTags:
             ]
         ]
         if disc_mp4[0][0] == 0 and disc_mp4[0][1] == 0:
-            disc_mp4 = [None]
+            disc_mp4 = None
 
         track_mp4 = [
             [
@@ -91,7 +91,7 @@ class MediaTags:
             ]
         ]
         if track_mp4[0][0] == 0 and track_mp4[0][1] == 0:
-            track_mp4 = [None]
+            track_mp4 = None
 
         if isinstance(self.date, datetime.date):
             if date_format is None:
@@ -104,40 +104,40 @@ class MediaTags:
             date_mp4 = None
 
         mp4_tags = {
-            "\xa9alb": [self.album],
-            "aART": [self.album_artist],
-            "\xa9ART": [self.artist],
-            "\xa9wrt": [self.composer],
+            "\xa9alb": self.album,
+            "aART": self.album_artist,
+            "\xa9ART": self.artist,
+            "\xa9wrt": self.composer,
             "cpil": bool(self.compilation) if self.compilation is not None else None,
-            "cprt": [self.copyright],
-            "\xa9day": [date_mp4],
-            "desc": [self.description],
+            "cprt": self.copyright,
+            "\xa9day": date_mp4,
+            "desc": self.description,
             "disk": disc_mp4,
-            "\xa9gen": [self.genre],
-            "----:com.apple.iTunes:ISRC": [
-                (
-                    MP4FreeForm(self.isrc.encode("utf-8"))
-                    if self.isrc is not None
-                    else None
-                )
-            ],
-            "----:com.apple.iTunes:LABEL": [
-                (
-                    MP4FreeForm(self.label.encode("utf-8"))
-                    if self.isrc is not None
-                    else None
-                )
-            ],
-            "\xa9lyr": [self.lyrics],
-            "stik": [int(self.media_type) if self.media_type is not None else None],
-            "\xa9prd": [self.producer],
-            "\xa9pub": [self.publisher],
-            "rtng": [int(self.rating) if self.rating is not None else None],
-            "\xa9nam": [self.title],
+            "\xa9gen": self.genre,
+            "----:com.apple.iTunes:ISRC": (
+                MP4FreeForm(self.isrc.encode("utf-8"))
+                if self.isrc is not None
+                else None
+            ),
+            "----:com.apple.iTunes:LABEL": (
+                MP4FreeForm(self.label.encode("utf-8"))
+                if self.label is not None
+                else None
+            ),
+            "\xa9lyr": self.lyrics,
+            "stik": int(self.media_type) if self.media_type is not None else None,
+            "\xa9prd": self.producer,
+            "\xa9pub": self.publisher,
+            "rtng": int(self.rating) if self.rating is not None else None,
+            "\xa9nam": self.title,
             "trkn": track_mp4,
-            "\xa9url": [self.url],
+            "\xa9url": self.url,
         }
-        return {k: v for k, v in mp4_tags.items() if v[0] is not None}
+        return {
+            k: ([v] if not isinstance(v, (list, bool)) else v)
+            for k, v in mp4_tags.items()
+            if v is not None
+        }
 
     def as_vorbis_tags(self, date_format: str = None) -> dict[str, list[Any]]:
         if isinstance(self.date, datetime.date):
