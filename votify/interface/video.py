@@ -253,7 +253,7 @@ class SpotifyVideoInterface(SpotifyBaseInterface):
                 stream_url=video_urls,
                 widevine_pssh=widevine_pssh,
             ),
-            file_format="mp4",
+            file_format="mp4" if self.video_format == VideoFormat.MP4 else "webm",
         )
 
         logger.debug(f"Generated stream info: {stream_info}")
