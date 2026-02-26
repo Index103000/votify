@@ -52,7 +52,7 @@ class SpotifyAudioInterface(SpotifyBaseInterface):
                 stream_url=stream_url,
                 widevine_pssh=pssh,
             ),
-            file_format="mp4",
+            file_format="m4a",
         )
 
         logger.debug(f"Parsed stream info: {stream_info}")
