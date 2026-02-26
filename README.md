@@ -12,11 +12,13 @@ A command-line app for downloading songs, podcasts and videos from Spotify.
 ## ✨ Features
 
 - 🎵 **Songs** — Download songs in AAC 128kbps, or AAC 256kbps with an active premium subscription.
-- 🎙️ **Podcasts** — Download podcasts in Vorbis or AAC.
+- 🎙️ **Podcasts** — Download podcasts in Vorbis or AAC.*
 - 🎬 **Videos** — Download podcast videos and music videos.
 - 🎤 **Synced Lyrics** — Download synced lyrics in LRC format.
 - 🧑‍🎤 **Artist Support** — Download an entire discography by providing the artist's URL.
 - ⚙️ **Highly Customizable** — Extensive configuration options for advanced users.
+
+***Vorbis codecs are not available at the moment.** Podcasts can only be downloaded in AAC format, even if a Vorbis quality is selected.
 
 ## 📋 Prerequisites
 
@@ -33,9 +35,6 @@ A command-line app for downloading songs, podcasts and videos from Spotify.
 
 > [!WARNING]
 > **Some users have reported that Spotify suspended their accounts after using Votify.** Use it at your own risk.
-
-> [!WARNING]
-> **Vorbis Codecs are not available for the moment.** This means that podcasts can only be downloaded in AAC format, even if you select a Vorbis audio quality.
 
 > [!NOTE]
 > - A .wvd file and FFmpeg is not needed if you only plan to download podcasts. In this case, you can use the `--no-drm` flag to disable the .wvd file requirement.
