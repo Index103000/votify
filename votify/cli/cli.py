@@ -133,6 +133,11 @@ async def main(config: CliConfig):
         base=base_downloader,
         audio=audio_downloader,
         video=video_downloader,
+        no_synced_lyrics_file=config.no_synced_lyrics_file,
+        save_playlist_file=config.save_playlist_file,
+        save_cover_file=config.save_cover_file,
+        overwrite=config.overwrite,
+        synced_lyrics_only=config.synced_lyrics_only,
     )
 
     if config.read_urls_as_txt:
