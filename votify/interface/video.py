@@ -250,7 +250,7 @@ class SpotifyVideoInterface(SpotifyBaseInterface):
             audio_track=StreamInfo(
                 stream_url=audio_urls,
                 widevine_pssh=widevine_pssh,
-                file_format="webm" if is_webm(profile_audio) else "m4a",
+                file_format="webm" if is_webm(profile_audio) else "mp4",
             ),
             video_track=StreamInfo(
                 stream_url=video_urls,
