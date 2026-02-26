@@ -68,6 +68,7 @@ class SpotifyEpisodeInterface(SpotifyAudioInterface):
     async def parse_tags(
         episode_data: dict,
         show_items: list[dict],
+        is_video: bool = False,
     ) -> MediaTags:
         tags = MediaTags(
             album=episode_data["podcastV2"]["data"]["name"],
@@ -76,7 +77,7 @@ class SpotifyEpisodeInterface(SpotifyAudioInterface):
             ),
             description=episode_data.get("description"),
             media_id=episode_data["uri"].split(":")[-1],
-            media_type=MediaType.PODCAST,
+            media_type=MediaType.PODCAST_VIDEO if is_video else MediaType.PODCAST,
             rating=SpotifyAudioInterface.parse_rating(
                 episode_data["contentRating"]["label"]
             ),

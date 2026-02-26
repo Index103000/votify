@@ -27,6 +27,7 @@ class MediaType(Enum):
     SONG = 1
     MUSIC_VIDEO = 6
     PODCAST = 21
+    PODCAST_VIDEO = 21
 
     def __str__(self) -> str:
         return MEDIA_TYPE_STR_MAP[self.value]
