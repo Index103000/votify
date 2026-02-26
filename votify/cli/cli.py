@@ -165,12 +165,8 @@ async def main(config: CliConfig):
             )
             try:
                 item = await download_queue.__anext__()
-                media_title = item.media.media_metadata["name"]
-                logger.info(download_queue_progress + f' Downloading "{media_title}"')
-
-                await downloader.download(item)
-
-                await asyncio.sleep(config.wait_interval)
+                if isinstance(item, BaseException):
+                    raise item
             except StopAsyncIteration:
                 break
             except VotifyUrlParseException as e:
@@ -183,6 +179,26 @@ async def main(config: CliConfig):
                 logger.warning(
                     download_queue_progress + f' Skipping "{media_title}": {str(e)}'
                 )
+                download_index += 1
+                continue
+            except Exception as e:
+                error_count += 1
+                logger.error(
+                    download_queue_progress + f" Error fetching media: {str(e)}",
+                    exc_info=not config.no_exceptions,
+                )
+                download_index += 1
+                continue
+
+            try:
+                media_title = item.media.media_metadata["name"]
+                logger.info(download_queue_progress + f' Downloading "{media_title}"')
+
+                await downloader.download(item)
+
+                await asyncio.sleep(config.wait_interval)
+            except StopAsyncIteration:
+                break
             except VotifyDownloaderException as e:
                 media_title = (
                     item.media.media_metadata["name"] if item else "Unknown Title"
