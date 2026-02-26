@@ -34,6 +34,9 @@ A command-line app for downloading songs, podcasts and videos from Spotify.
 > [!WARNING]
 > **Some users have reported that Spotify suspended their accounts after using Votify.** Use it at your own risk.
 
+> [!WARNING]
+> **Vorbis Codecs are not available for the moment.** This means that podcasts can only be downloaded in AAC format, even if you select a Vorbis audio quality.
+
 > [!NOTE]
 > - A .wvd file and FFmpeg is not needed if you only plan to download podcasts. In this case, you can use the `--no-drm` flag to disable the .wvd file requirement.
 
