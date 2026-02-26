@@ -8,7 +8,6 @@ from .constants import (
     MEDIA_RATING_STR_MAP,
     MEDIA_TYPE_STR_MAP,
     PREMIUM_AUDIO_QUALITIES,
-    VORBIS_AUDIO_QUALITIES,
 )
 
 
