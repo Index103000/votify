@@ -105,7 +105,12 @@ votify "https://open.spotify.com/show/4rOoJ6Egrf8K2IrywzwOMk"
 
 Download a music video:
 ```bash
-votify "https://open.spotify.com/track/31k4hgHmrbzorLZMvMWuzq" --prefer-video
+votify "https://open.spotify.com/track/31k4hgHmrbzorLZMvMWuzq"
+```
+
+Download a music video from a song:
+```bash
+votify "https://open.spotify.com/track/18gqCQzqYb0zvurQPlRkpo" --prefer-video
 ```
 
 Download a podcast video:
