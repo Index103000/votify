@@ -49,7 +49,7 @@ class SpotifyInterface:
         if "__typename" in track_data and track_data["__typename"] != "Track":
             return VotifyMediaNotFoundException(track_id, track_data)
 
-        if track_data["playability"]["playable"]:
+        if not track_data["playability"]["playable"]:
             return VotifyMediaUnstreamableException(track_id, track_data)
 
         playback_info = await self.base.get_playback_info(
