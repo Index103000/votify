@@ -46,7 +46,7 @@ class SpotifyInterface:
             track_response = await self.base.api.get_track(track_id)
             track_data = track_response["data"]["trackUnion"]
 
-        if track_data["__typename"] != "Track":
+        if "__typename" in track_data and track_data["__typename"] != "Track":
             raise VotifyMediaNotFoundException(track_id, track_data)
 
         if not track_data["playability"]["playable"]:
