@@ -1,11 +1,10 @@
 import asyncio
 import logging
 
-from .episode import SpotifyEpisodeInterface
-from .exceptions import VotifyDrmDisabledException
+from .enums import MediaType
+from .song import SpotifySongInterface
 from .types import MediaTags, SpotifyMedia
 from .video import SpotifyVideoInterface
-from .song import SpotifySongInterface
 
 logger = logging.getLogger(__name__)
 
@@ -47,6 +46,7 @@ class SpotifyMusicVideoInterface(SpotifyVideoInterface):
             isrc=isrc,
             label=label,
             media_id=track_data["uri"].split(":")[-1],
+            media_type=MediaType.MUSIC_VIDEO,
             producer=producer,
             rating=rating,
             url=f"https://open.spotify.com/track/{track_data['uri'].split(':')[-1]}",
