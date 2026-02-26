@@ -14,7 +14,14 @@ from ..downloader.enums import AudioDownloadMode, AudioRemuxMode, VideoRemuxMode
 from ..downloader.video import SpotifyVideoDownloader
 from ..interface.audio import SpotifyAudioInterface
 from ..interface.base import SpotifyBaseInterface
-from ..interface.enums import AudioQuality, CoverSize, VideoFormat, VideoResolution
+from ..interface.enums import (
+    AudioQuality,
+    CoverSize,
+    VideoFormat,
+    VideoResolution,
+    ArtistMediaOption,
+)
+from ..interface.interface import SpotifyInterface
 from ..interface.video import SpotifyVideoInterface
 from .utils import Csv
 
@@ -23,6 +30,7 @@ api_from_cookies_sig = inspect.signature(SpotifyApi.create_from_netscape_cookies
 base_interface_sig = inspect.signature(SpotifyBaseInterface.__init__)
 audio_interface_sig = inspect.signature(SpotifyAudioInterface.__init__)
 video_interface_sig = inspect.signature(SpotifyVideoInterface.__init__)
+interface_sig = inspect.signature(SpotifyInterface.__init__)
 
 base_downloader_sig = inspect.signature(SpotifyBaseDownloader.__init__)
 video_downloader_sig = inspect.signature(SpotifyVideoDownloader.__init__)
@@ -186,6 +194,16 @@ class CliConfig:
             help="Video resolution to use",
             default=video_interface_sig.parameters["resolution"].default,
             type=VideoResolution,
+        ),
+    ]
+    # Interface specific options
+    artist_media_option: Annotated[
+        ArtistMediaOption,
+        option(
+            "--artist-media-option",
+            help="Auto-select option for artist URLs",
+            default=interface_sig.parameters["artist_media_option"].default,
+            type=ArtistMediaOption,
         ),
     ]
     # Base Downloader specific options

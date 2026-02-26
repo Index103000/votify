@@ -97,6 +97,7 @@ async def main(config: CliConfig):
         episode=episode_interface,
         music_video=music_video_interface,
         episode_video=episode_video_interface,
+        artist_media_option=config.artist_media_option,
     )
 
     base_downloader = SpotifyBaseDownloader(
