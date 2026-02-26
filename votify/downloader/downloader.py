@@ -194,11 +194,11 @@ class SpotifyDownloader:
                 item.staged_path,
                 item.final_path,
             )
-            if item.playlist_file_path and self.save_playlist_file:
-                self.base.update_playlist_file(
-                    item.playlist_file_path,
-                    item.media.playlist_tags,
-                )
+        if item.playlist_file_path and self.save_playlist_file:
+            self.base.update_playlist_file(
+                item.playlist_file_path,
+                item.media.playlist_tags,
+            )
 
     def _write_cover_file(self, cover_path: str, cover_bytes: bytes) -> None:
         logger.debug(f"Writing cover: {cover_path}")
