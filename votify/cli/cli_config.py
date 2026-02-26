@@ -302,6 +302,14 @@ class CliConfig:
             ].default,
         ),
     ]
+    podcast_folder_template: Annotated[
+        str,
+        option(
+            "--podcast-folder-template",
+            help="Podcast folder template",
+            default=base_downloader_sig.parameters["podcast_folder_template"].default,
+        ),
+    ]
     no_album_folder_template: Annotated[
         str,
         option(
@@ -324,6 +332,14 @@ class CliConfig:
             "--multi-disc-file-template",
             help="Multi disc file template",
             default=base_downloader_sig.parameters["multi_disc_file_template"].default,
+        ),
+    ]
+    podcast_file_template: Annotated[
+        str,
+        option(
+            "--podcast-file-template",
+            help="Podcast file template",
+            default=base_downloader_sig.parameters["podcast_file_template"].default,
         ),
     ]
     no_album_file_template: Annotated[
