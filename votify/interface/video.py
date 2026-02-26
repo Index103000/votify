@@ -6,7 +6,7 @@ from InquirerPy.base.control import Choice
 from .base import SpotifyBaseInterface
 from .constants import COVER_SIZE_ID_MAP_VIDEO
 from .enums import VideoFormat, VideoResolution
-from .types import StreamInfo, StreamInfoAv
+from .types import DecryptionKey, StreamInfo, StreamInfoAv
 
 logger = logging.getLogger(__name__)
 
@@ -270,5 +270,5 @@ class SpotifyVideoInterface(SpotifyBaseInterface):
 
         return cover_url
 
-    async def get_widevine_decryption_key(self, pssh: str):
+    async def get_widevine_decryption_key(self, pssh: str) -> DecryptionKey:
         return await self._get_widevine_decryption_key(pssh, "video")

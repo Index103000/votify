@@ -54,10 +54,8 @@ class SpotifyEpisodeInterface(SpotifyAudioInterface):
             e.media_metadata = episode_data
             raise
 
-        media.decryption_key = DecryptionKeyAv(
-            DecryptionKey(
-                decryption_key=DEFAULT_EPISODE_DECRYPTION_KEY,
-            )
+        media.decryption_key = DecryptionKey(
+            decryption_key=DEFAULT_EPISODE_DECRYPTION_KEY,
         )
 
         logger.debug(f"Parsed episode media: {media}")

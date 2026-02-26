@@ -21,12 +21,6 @@ class DecryptionKey:
 
 
 @dataclass
-class DecryptionKeyAv:
-    audio: DecryptionKey
-    video: DecryptionKey | None = None
-
-
-@dataclass
 class StreamInfo:
     stream_url: str | list[str]
     widevine_pssh: str
@@ -192,5 +186,5 @@ class SpotifyMedia:
     cover_url: str | None = None
     lyrics: MediaLyrics | None = None
     stream_info: StreamInfoAv | None = None
-    decryption_key: DecryptionKeyAv | None = None
+    decryption_key: DecryptionKey | None = None
     flat_filter_result: Any = None

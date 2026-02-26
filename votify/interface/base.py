@@ -8,7 +8,7 @@ from ..api import SpotifyApi
 from .constants import URL_INFO_RE
 from .enums import CoverSize, MediaRating
 from .exceptions import VotifyUrlParseException
-from .types import DecryptionKey, DecryptionKeyAv, PlaylistTags, SpotifyUrlInfo
+from .types import DecryptionKey, PlaylistTags, SpotifyUrlInfo
 
 logger = logging.getLogger(__name__)
 
@@ -82,7 +82,7 @@ class SpotifyBaseInterface:
         self,
         pssh: str,
         media_type: str,
-    ) -> DecryptionKeyAv:
+    ) -> DecryptionKey:
         try:
             cdm_session = self.cdm.open()
             pssh = PSSH(pssh)
@@ -99,9 +99,7 @@ class SpotifyBaseInterface:
 
         logger.debug(f"Received decryption key: {key_id}:{decryption_key}")
 
-        return DecryptionKeyAv(
-            DecryptionKey(key_id=key_id, decryption_key=decryption_key)
-        )
+        return DecryptionKey(key_id=key_id, decryption_key=decryption_key)
 
     def is_video(self, playback_info: dict) -> bool:
         return bool(playback_info["manifest"].get("manifest_ids_video"))
