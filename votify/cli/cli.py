@@ -25,8 +25,7 @@ from ..interface.song import SpotifySongInterface
 from ..interface.video import SpotifyVideoInterface
 from .cli_config import CliConfig
 from .config_file import ConfigFile
-from .constants import X_NOT_IN_PATH
-from .utils import Csv, CustomLoggerFormatter, prompt_path
+from .utils import CustomLoggerFormatter, prompt_path
 
 logger = logging.getLogger(__name__)
 
