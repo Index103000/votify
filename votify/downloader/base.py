@@ -40,7 +40,7 @@ class SpotifyBaseDownloader:
         single_disc_file_template: str = "{track:02d} {title}",
         multi_disc_file_template: str = "{disc}-{track:02d} {title}",
         no_album_file_template: str = "{title}",
-        playlist_file_template: str = "Playlists/{playlist_artist}/{playlist_title}",
+        playlist_file_template: str = "Playlists/{artist}/{title}",
         date_tag_template: str = "%Y-%m-%dT%H:%M:%SZ",
         exclude_tags: list[str] | None = None,
         truncate: int | None = None,
