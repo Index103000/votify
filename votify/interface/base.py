@@ -117,7 +117,9 @@ class SpotifyBaseInterface:
         playback_info = playback_info_response["media"][playback_info_key]
 
         if self.prefer_video and playback_info.get("video_version_uri"):
-            playback_info = playback_info_response[playback_info["video_version_uri"]]
+            playback_info = playback_info_response["media"][
+                playback_info["video_version_uri"]
+            ]
 
         return playback_info["item"]
 
