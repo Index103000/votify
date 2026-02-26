@@ -31,7 +31,7 @@ class SpotifyAudioDownloader(SpotifyBaseDownloader):
         output_path: str,
         stream_url: str,
     ) -> None:
-        logger.info(f"Downloading audio stream from '{stream_url}' to '{output_path}'")
+        logger.debug(f"Downloading audio stream from '{stream_url}' to '{output_path}'")
 
         if self.download_mode == AudioDownloadMode.YTDLP:
             await asyncio.to_thread(self._download_with_ytdlp, stream_url, output_path)
