@@ -1,7 +1,11 @@
 import logging
 from typing import AsyncGenerator
 
+from InquirerPy import inquirer
+from InquirerPy.base.control import Choice
+
 from .audio import SpotifyAudioInterface
+from .enums import ArtistMediaOption
 from .episode import SpotifyEpisodeInterface
 from .episode_video import SpotifyEpisodeVideoInterface
 from .exceptions import (
@@ -25,12 +29,14 @@ class SpotifyInterface:
         episode: SpotifyEpisodeInterface,
         music_video: SpotifyMusicVideoInterface,
         episode_video: SpotifyEpisodeVideoInterface,
+        artist_media_option: ArtistMediaOption | None = None,
     ) -> None:
         self.base = base
         self.song = song
         self.episode = episode
         self.music_video = music_video
         self.episode_video = episode_video
+        self.artist_media_option = artist_media_option
 
     async def _get_track_media(
         self,
@@ -209,6 +215,167 @@ class SpotifyInterface:
                 media.playlist_metadata = playlist_data
                 media.playlist_tags = self.base.get_playlist_tags(playlist_data, index)
 
+    async def _get_artist_media(
+        self,
+        media_id: str,
+    ) -> AsyncGenerator[SpotifyMedia | BaseException, None]:
+        if self.artist_media_option:
+            artist_media_option = self.artist_media_option
+        else:
+            choices = [
+                Choice(name=option.value.capitalize(), value=option)
+                for option in ArtistMediaOption
+            ]
+            artist_media_option = await inquirer.select(
+                message="Select which media to download:",
+                choices=choices,
+            ).execute_async()
+
+        if artist_media_option in {
+            ArtistMediaOption.ALBUMS,
+            ArtistMediaOption.SINGLES,
+            ArtistMediaOption.COMPILATIONS,
+        }:
+            key = (
+                "albums"
+                if artist_media_option == ArtistMediaOption.ALBUMS
+                else (
+                    "singles"
+                    if artist_media_option == ArtistMediaOption.SINGLES
+                    else "compilations"
+                )
+            )
+            async for media in self._get_artist_media_albums(media_id, key):
+                yield media
+        else:
+            async for media in self._get_artist_media_videos(media_id):
+                yield media
+
+    async def _get_artist_media_videos(
+        self,
+        media_id: str,
+    ) -> AsyncGenerator[SpotifyMedia | BaseException, None]:
+        videos_response = await self.base.api.get_artist_videos(media_id)
+        videos_data = videos_response["data"]["artistUnion"]
+
+        if videos_data["__typename"] != "Artist":
+            yield VotifyMediaNotFoundException(media_id, videos_data)
+            return
+
+        related_items = videos_data["relatedMusicVideos"]["items"]
+        unmapped_items = videos_data["unmappedMusicVideos"]["items"]
+        related_total = videos_data["relatedMusicVideos"]["totalCount"]
+        unmapped_total = videos_data["unmappedMusicVideos"]["totalCount"]
+
+        while (
+            len(related_items) < related_total or len(unmapped_items) < unmapped_total
+        ):
+            offset = max(len(related_items), len(unmapped_items))
+            videos_response = await self.base.api.get_artist_videos(media_id, offset)
+            videos_data = videos_response["data"]["artistUnion"]
+            if len(related_items) < related_total:
+                related_items.extend(videos_data["relatedMusicVideos"]["items"])
+            if len(unmapped_items) < unmapped_total:
+                unmapped_items.extend(videos_data["unmappedMusicVideos"]["items"])
+
+        video_items = related_items + unmapped_items
+
+        if not video_items:
+            yield VotifyMediaNotFoundException(media_id, videos_data)
+            return
+
+        if self.artist_media_option:
+            selection = video_items
+        else:
+            choices = [
+                Choice(
+                    name=" | ".join(
+                        [
+                            video_item["data"]["name"],
+                        ]
+                    ),
+                    value=video_item,
+                )
+                for video_item in video_items
+            ]
+            selection = await inquirer.select(
+                message="Select which videos to download (Title):",
+                choices=choices,
+                multiselect=True,
+            ).execute_async()
+
+        for video_item in selection:
+            track_id = video_item["uri"].split(":")[-1]
+            media = await self._get_track_media(
+                track_id=track_id,
+                track_data=video_item,
+            )
+            yield media
+
+    async def _get_artist_media_albums(
+        self,
+        media_id: str,
+        key: str,
+    ) -> AsyncGenerator[SpotifyMedia | BaseException, None]:
+        if key == "compilations":
+            albums_response = await self.base.api.get_artist_compilations(media_id)
+        elif key == "singles":
+            albums_response = await self.base.api.get_artist_singles(media_id)
+        else:
+            albums_response = await self.base.api.get_artist_albums(media_id)
+        albums_data = albums_response["data"]["artistUnion"]
+
+        if albums_data["__typename"] != "Artist":
+            yield VotifyMediaNotFoundException(media_id, albums_data)
+            return
+
+        album_items = albums_data["discography"][key]["items"]
+        while len(album_items) < albums_data["discography"][key]["totalCount"]:
+            albums_response = await self.base.api.get_artist_albums(
+                media_id,
+                len(album_items),
+            )
+            album_items.extend(
+                albums_response["data"]["artistUnion"]["discography"][key]["items"]
+            )
+
+        album_items_filtered = [
+            release_item
+            for album_item in album_items
+            for release_item in album_item["releases"]["items"]
+        ]
+
+        if not album_items_filtered:
+            yield VotifyMediaNotFoundException(media_id, albums_data)
+            return
+
+        if self.artist_media_option:
+            selection = album_items_filtered
+        else:
+            choices = [
+                Choice(
+                    name=" | ".join(
+                        [
+                            str(album_item["date"]["year"]),
+                            f"{album_item['tracks']['totalCount']:03d}",
+                            album_item["name"],
+                        ]
+                    ),
+                    value=album_item,
+                )
+                for album_item in album_items_filtered
+            ]
+            selection = await inquirer.select(
+                message="Select which albums to download (Year | Track Count | Title):",
+                choices=choices,
+                multiselect=True,
+            ).execute_async()
+
+        for album_item in selection:
+            album_id = album_item["uri"].split(":")[-1]
+            async for media in self._get_album_media(album_id):
+                yield media
+
     async def get_media_by_url(
         self,
         url: str,
@@ -229,4 +396,7 @@ class SpotifyInterface:
                 yield media
         elif url_info.media_type == "playlist":
             async for media in self._get_playlist_media(url_info.media_id):
+                yield media
+        elif url_info.media_type == "artist":
+            async for media in self._get_artist_media(url_info.media_id):
                 yield media

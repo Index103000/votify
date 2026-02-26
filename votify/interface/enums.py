@@ -94,3 +94,10 @@ class VideoResolution(Enum):
 
     def __int__(self) -> int:
         return int(self.value[:-1])
+
+
+class ArtistMediaOption(Enum):
+    ALBUMS = "albums"
+    COMPILATIONS = "compilations"
+    SINGLES = "singles"
+    VIDEOS = "videos"
