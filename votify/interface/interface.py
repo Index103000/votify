@@ -194,7 +194,7 @@ class SpotifyInterface:
                     playlist_response["data"]["playlistV2"]["content"]["items"]
                 )
 
-            for index, item in enumerate(playlist_items):
+            for index, item in enumerate(playlist_items, start=1):
                 track_data = item["itemV2"]["data"]
                 track_id = track_data["uri"].split(":")[-1]
 
