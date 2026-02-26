@@ -1,7 +1,6 @@
 import logging
 
 from .base import SpotifyBaseInterface
-from .constants import AAC_AUDIO_QUALITIES
 from .enums import AudioQuality
 from .exceptions import VotifyMediaAudioQualityNotAvailableException
 from .types import DecryptionKeyAv, StreamInfo, StreamInfoAv
@@ -25,7 +24,7 @@ class SpotifyAudioInterface(SpotifyBaseInterface):
         skip_pssh: bool,
     ) -> StreamInfoAv | None:
         if (
-            self.audio_quality.value not in AAC_AUDIO_QUALITIES
+            not self.audio_quality.mp4
             or self.audio_quality.premium
             and not self.api.premium_session
         ):
