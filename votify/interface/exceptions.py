@@ -1,21 +1,25 @@
 from ..utils import VotiyException
 
 
-class VotifyUrlParseException(VotiyException):
+class VotifyInterfaceException(VotiyException):
+    pass
+
+
+class VotifyUrlParseException(VotifyInterfaceException):
     def __init__(self, url: str):
         super().__init__(f"Failed to parse Spotify URL: {url}")
 
         self.url = url
 
 
-class VotifyUnsupportedMediaTypeException(VotiyException):
+class VotifyUnsupportedMediaTypeException(VotifyInterfaceException):
     def __init__(self, media_type: str):
         super().__init__(f"Unsupported URL media type: {media_type}")
 
         self.media_type = media_type
 
 
-class VotifyMediaException(VotiyException):
+class VotifyMediaException(VotifyInterfaceException):
     def __init__(self, message: str, media_id: str, media_metadata: dict | None = None):
         super().__init__(f"{message}: {media_id}")
 
@@ -23,7 +27,7 @@ class VotifyMediaException(VotiyException):
         self.media_metadata = media_metadata
 
 
-class VotifyDrmDisabledException(VotifyMediaException):
+class VotifyDrmDisabledException(VotifyInterfaceException):
     def __init__(self, media_id: str, media_metadata: dict | None = None):
         super().__init__(
             "DRM is disabled, cannot process media",
@@ -32,7 +36,7 @@ class VotifyDrmDisabledException(VotifyMediaException):
         )
 
 
-class VotifyMediaNotFoundException(VotifyMediaException):
+class VotifyMediaNotFoundException(VotifyInterfaceException):
     def __init__(self, media_id: str, media_metadata: dict | None = None):
         super().__init__(
             "Media not found",
@@ -41,7 +45,7 @@ class VotifyMediaNotFoundException(VotifyMediaException):
         )
 
 
-class VotifyMediaUnstreamableException(VotifyMediaException):
+class VotifyMediaUnstreamableException(VotifyInterfaceException):
     def __init__(self, media_id: str, media_metadata: dict | None = None):
         super().__init__(
             "Media is not streamable",
@@ -50,7 +54,7 @@ class VotifyMediaUnstreamableException(VotifyMediaException):
         )
 
 
-class VotifyMediaAudioQualityNotAvailableException(VotifyMediaException):
+class VotifyMediaAudioQualityNotAvailableException(VotifyInterfaceException):
     def __init__(
         self,
         media_id: str,
