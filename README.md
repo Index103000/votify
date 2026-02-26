@@ -216,38 +216,30 @@ The following variables can be used in template folder/file options and in the `
 
 ### Cover sizes
 
-| Value | Max resolution |
-| ----- | -------------- |
-| `small` | 64px |
-| `medium` | 300px |
-| `large` | 640px |
-| `extra-large` | 2000px |
+- `small` - Up to 64px
+- `medium` - Up to 300px
+- `large` - Up to 640px
+- `extra-large` - Up to 2000px
 
 ### Audio qualities
 
-| Value | Description |
-| ----- | ----------- |
-| `aac-medium` | AAC 128kbps |
-| `aac-high` | AAC 256kbps — requires an active premium subscription |
-| `vorbis-low` | Vorbis 96kbps — podcasts only |
-| `vorbis-medium` | Vorbis 160kbps — podcasts only |
-| `vorbis-high` | Vorbis 320kbps — podcasts only, requires an active premium subscription |
+- `aac-medium` - AAC 128kbps
+- `aac-high` - AAC 256kbps, requires an active premium subscription
+- `vorbis-low` - Vorbis 96kbps, podcasts only
+- `vorbis-medium` - Vorbis 160kbps, podcasts only
+- `vorbis-high` - Vorbis 320kbps, podcasts only, requires an active premium subscription
 
 ### Video formats
 
-| Value | Description |
-| ----- | ----------- |
-| `mp4` | H.264 up to 1080p with AAC 128kbps |
-| `webm` | VP9 up to 1080p with Opus 160kbps |
-| `ask` | Prompt to choose available video and audio codecs |
+- `mp4` - H.264 up to 1080p with AAC 128kbps
+- `webm` - VP9 up to 1080p with Opus 160kbps
+- `ask` - Prompt to choose available video and audio codecs
 
 ### Download modes
 
-| Value | Description |
-| ----- | ----------- |
-| `ytdlp` | Default download mode |
-| `aria2c` | Faster alternative |
-| `curl` | Alternative download mode using curl |
+- `ytdlp` - Default download mode
+- `aria2c` - Faster alternative
+- `curl` - Alternative using curl
 
 ### Video remux modes
 
@@ -266,12 +258,10 @@ The following variables can be used in template folder/file options and in the `
 
 ### Artist media options
 
-| Value | Description |
-| ----- | ----------- |
-| `albums` | Auto-select albums |
-| `compilations` | Auto-select compilations |
-| `singles` | Auto-select singles |
-| `videos` | Auto-select music videos |
+- `albums` - Auto-select albums
+- `compilations` - Auto-select compilations
+- `singles` - Auto-select singles
+- `videos` - Auto-select music videos
 
 ### Log levels
 
