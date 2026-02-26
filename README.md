@@ -1,64 +1,68 @@
-# Votify
+# Votify (Glomatico's Spotify Downloader)
+
+[![PyPI version](https://img.shields.io/pypi/v/votify?color=blue)](https://pypi.org/project/votify/)
+[![Python versions](https://img.shields.io/pypi/pyversions/votify)](https://pypi.org/project/votify/)
+[![License](https://img.shields.io/github/license/glomatico/votify)](https://github.com/glomatico/votify/blob/main/LICENSE)
+[![Downloads](https://img.shields.io/pypi/dm/votify)](https://pypi.org/project/votify/)
 
 A command-line app for downloading songs, podcasts and videos from Spotify.
 
 **Join our Discord Server:** <https://discord.gg/aBjMEZ9tnq>
 
-## Features
+## ✨ Features
 
-- **Songs**: Download songs up in AAC 128kbps or in AAC 256kbps with an active premium subscription.
-- **Podcasts**: Download podcasts in Vorbis or AAC.
-- **Videos**: Download podcast videos and music videos.
-- **Synced Lyrics**: Download synced lyrics in LRC.
-- **Artist Support**: Download an entire discography by providing the artist's URL.
-- **Highly Customizable**: Extensive configuration options for advanced users.
+- 🎵 **Songs** — Download songs in AAC 128kbps, or AAC 256kbps with an active premium subscription.
+- 🎙️ **Podcasts** — Download podcasts in Vorbis or AAC.
+- 🎬 **Videos** — Download podcast videos and music videos.
+- 🎤 **Synced Lyrics** — Download synced lyrics in LRC format.
+- 🧑‍🎤 **Artist Support** — Download an entire discography by providing the artist's URL.
+- ⚙️ **Highly Customizable** — Extensive configuration options for advanced users.
 
-## Prerequisites
+## 📋 Prerequisites
 
-- **Python 3.10 or higher** installed on your system.
-- The **cookies file** of your Spotify browser session in Netscape format. Use one of the following extensions at the Spotify homepage while logged in to export the cookies:
-  - **Firefox**: [Export Cookies](https://addons.mozilla.org/addon/export-cookies-txt).
-  - **Chromium-based Browsers**: [Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc).
-- **FFmpeg** on your system PATH. Use one of the recommended builds:
-  - **Windows**: [AnimMouse's FFmpeg Builds](https://github.com/AnimMouse/ffmpeg-stable-autobuild/releases).
-  - **Linux**: [John Van Sickle's FFmpeg Builds](https://johnvansickle.com/ffmpeg/).
-- **(Optional)** A **.wvd file**.
-  - A `.wvd` file contains the Widevine keys from a device and is required to decrypt music videos and songs in AAC. The easiest method of obtaining one is using KeyDive, which extracts it from an Android device. Detailed instructions can be found here: https://github.com/hyugogirubato/KeyDive. **.wvd files extracted from emulated devices may not work**.
+### Required
 
-#### Notes
+- **Python 3.10 or higher**
+- **Spotify cookies** — Export your browser cookies in Netscape format while logged in at the Spotify homepage:
+  - Firefox: [Export Cookies](https://addons.mozilla.org/addon/export-cookies-txt)
+  - Chromium-based browsers: [Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc)
+- **FFmpeg** on your system PATH. Recommended builds:
+  - Windows: [AnimMouse's FFmpeg Builds](https://github.com/AnimMouse/ffmpeg-stable-autobuild/releases)
+  - Linux: [John Van Sickle's FFmpeg Builds](https://johnvansickle.com/ffmpeg/)
+- **[.wvd file](https://github.com/hyugogirubato/KeyDive)** — Required to decrypt music videos and AAC songs. Use [KeyDive](https://github.com/hyugogirubato/KeyDive) to extract it from an Android device. Files from emulated devices may not work.
 
-- **Some users have reported that Spotify suspended their accounts after using Votify**. Use it at your own risk.
-- The .wvd file is not required, but expect latency otherwise.
-- FFmpeg is not required if you plan on only downloading podcasts in Vorbis, but it's needed for downloading podcasts in AAC.
+> [!WARNING]
+> **Some users have reported that Spotify suspended their accounts after using Votify.** Use it at your own risk.
 
-### Optional dependencies
+> [!NOTE]
+> - A .wvd file and FFmpeg is not needed if you only plan to download podcasts. In this case, you can use the `--no-drm` flag to disable the .wvd file requirement.
 
-The following tools are optional but required for specific features. Add them to your system's PATH or specify their paths using command-line arguments or the config file.
+### Optional
 
-- [MP4Box](https://gpac.io/downloads/gpac-nightly-builds/): Required when setting `mp4box` as remux mode.
-- [Shaka Packager](https://github.com/shaka-project/shaka-packager/releases/latest): Required when setting `webm` as video format and when downloading music videos.
-- [mp4decrypt](https://www.bento4.com/downloads/): Required when setting `mp4box` or `mp4decrypt` as remux mode.
-- [aria2c](https://github.com/aria2/aria2/releases): Required when setting `aria2c` as download mode.
+Add these tools to your system PATH or specify their paths via command-line arguments or the config file:
 
-## Installation
+- **[MP4Box](https://gpac.io/downloads/gpac-nightly-builds/)** — Required when using `mp4box` as remux mode.
+- **[Shaka Packager](https://github.com/shaka-project/shaka-packager/releases/latest)** — Required for `webm` video format and music video downloads.
+- **[mp4decrypt](https://www.bento4.com/downloads/)** — Required when using `mp4box` or `mp4decrypt` as remux mode.
+- **[aria2c](https://github.com/aria2/aria2/releases)** — Required when using `aria2c` as download mode.
+- **[cURL](https://curl.se/download.html)** — Required for when using `curl` as download mode.
 
-1. Install the package `votify` using pip:
+## 📦 Installation
+
+1. Install Votify via pip:
    ```bash
-   pip uninstall votify votify-fix -y
-   pip cache purge
-   pip install git+https://github.com/GladistonXD/votify-fix.git
+   pip install -y
    ```
-2. Set up the cookies file.
-   - Move the cookies file to the directory where you'll run Votify and rename it to `cookies.txt`.
-   - Alternatively, specify the path to the cookies file using command-line arguments or the config file.
-3. **(Optional**) Set up the .wvd file.
-   
-   - Move the .wvd file file to the directory where you'll run Votify and rename it to `device.wvd`.
-   - Alternatively, specify the path to the .wvd file using command-line arguments or the config file.
 
-## Usage
+2. Set up the cookies file:
+   - Place the cookies file in your working directory as `cookies.txt`, or
+   - Specify its path using `--cookies-path` or in the config file.
 
-Run Votify with the following command:
+3. Set up the `.wvd` file:
+   - Place it in your working directory as `device.wvd`, or
+   - Specify its path using `--wvd-path` or in the config file.
+
+## 🚀 Usage
 
 ```bash
 votify [OPTIONS] URLS...
@@ -76,156 +80,171 @@ votify [OPTIONS] URLS...
 
 ### Examples
 
-- Download a song
-  ```bash
-  votify "https://open.spotify.com/track/18gqCQzqYb0zvurQPlRkpo"
-  ```
-- Download an album
-  ```bash
-  votify "https://open.spotify.com/album/0r8D5N674HbTXlR3zNxeU1"
-  ```
-- Download a podcast episode
-  ```bash
-  votify "https://open.spotify.com/episode/3kwxWnzGH8T6UY2Nq582zx"
-  ```
-- Download a podcast series
-  ```bash
-  votify "https://open.spotify.com/show/4rOoJ6Egrf8K2IrywzwOMk"
-  ```
-- Download a music video
-  ```bash
-  votify "https://open.spotify.com/track/31k4hgHmrbzorLZMvMWuzq" --download-music-videos
-  ```
-- List and select a related music video to download from a song
-  ```bash
-  votify "https://open.spotify.com/track/0a0n6u6j3t6m0p4k0t0k0u0" --download-music-videos
-  ```
-- Download a podcast video
-  ```bash
-  votify "https://open.spotify.com/episode/3kwxWnzGH8T6UY2Nq582zx" --download-podcast-videos
-  ```
-- Choose which albums to download from an artist
-  ```bash
-  votify "https://open.spotify.com/artist/0gxyHStUsqpMadRV0Di1Qt"
-  ```
+Download a song:
+```bash
+votify "https://open.spotify.com/track/18gqCQzqYb0zvurQPlRkpo"
+```
+
+Download an album:
+```bash
+votify "https://open.spotify.com/album/0r8D5N674HbTXlR3zNxeU1"
+```
+
+Download a podcast episode:
+```bash
+votify "https://open.spotify.com/episode/3kwxWnzGH8T6UY2Nq582zx"
+```
+
+Download a podcast series:
+```bash
+votify "https://open.spotify.com/show/4rOoJ6Egrf8K2IrywzwOMk"
+```
+
+Download a music video:
+```bash
+votify "https://open.spotify.com/track/31k4hgHmrbzorLZMvMWuzq" --prefer-video
+```
+
+Download a podcast video:
+```bash
+votify "https://open.spotify.com/episode/3kwxWnzGH8T6UY2Nq582zx" --prefer-video
+```
+
+Choose which media to download from an artist:
+```bash
+votify "https://open.spotify.com/artist/0gxyHStUsqpMadRV0Di1Qt"
+```
+
+Auto-select artist albums without a prompt:
+```bash
+votify "https://open.spotify.com/artist/0gxyHStUsqpMadRV0Di1Qt" --artist-media-option albums
+```
 
 ### Interactive prompt controls
 
-- **Arrow keys**: Move selection
-- **Space**: Toggle selection
-- **Ctrl + A**: Select all
-- **Enter**: Confirm selection
+| Key | Action |
+| --- | ------ |
+| Arrow keys | Move selection |
+| Space | Toggle selection |
+| Ctrl + A | Select all |
+| Enter | Confirm selection |
 
-## Configuration
+## ⚙️ Configuration
 
-Votify can be configured using the command-line arguments or the config file.
+Votify can be configured using command-line arguments or the config file.
 
-The config file is created automatically when you run Votify for the first time at `~/.votify/config.ini` on Linux and `%USERPROFILE%\.votify\config.ini` on Windows.
+Config file location:
+- Linux: `~/.votify/config.ini`
+- Windows: `%USERPROFILE%\.votify\config.ini`
 
-Config file values can be overridden using command-line arguments.
+The file is created automatically on first run. Command-line arguments override config file values.
 
-| Command-line argument / Config file key                         | Description                                                        | Default value                                  |
-| --------------------------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------- |
-| `--wait-interval`, `-w` / `wait_interval`                       | Wait interval between downloads in seconds.                        | `5`                                            |
-| `--disable-wvd` / `disable_wvd`                                 | Disable Widevine decryption                                        | `false`                                        |
-| `--download-music-videos` / `download_music_videos`             | List and select a related music video to download from songs.      | `false`                                        |
-| `--download-podcast-videos` / `download_podcast_videos`         | Attempt to download the video version of podcasts.                 | `false`                                        |
-| `--force-premium`, `-f` / `force_premium`                       | Force to detect the account as premium.                            | `false`                                        |
-| `--read-urls-as-txt`, `-r` / -                                  | Interpret URLs as paths to text files containing URLs.             | `false`                                        |
-| `--config-path` / -                                             | Path to config file.                                               | `<home>/.votify/config.ini `                   |
-| `--log-level` / `log_level`                                     | Log level.                                                         | `INFO`                                         |
-| `--no-exceptions` / `no_exceptions`                             | Don't print exceptions.                                            | `false`                                        |
-| `--cookies-path` / `cookies_path`                               | Path to cookies file.                                              | `cookies.txt`                                  |
-| `--output-path`, `-o` / `output_path`                           | Path to output directory.                                          | `Spotify`                                      |
-| `--temp-path` / `temp_path`                                     | Path to temporary directory.                                       | `temp`                                         |
-| `--wvd-path` / `wvd_path`                                       | Path to .wvd file.                                                 | `device.wvd`                                   |
-| `--aria2c-path` / `aria2c_path`                                 | Path to aria2c binary.                                             | `aria2c`                                       |
-| `--ffmpeg-path` / `ffmpeg_path`                                 | Path to ffmpeg binary.                                             | `ffmpeg`                                       |
-| `--mp4box-path` / `mp4box_path`                                 | Path to MP4Box binary.                                             | `mp4box`                                       |
-| `--mp4decrypt-path` / `mp4decrypt_path`                         | Path to mp4decrypt binary.                                         | `mp4decrypt`                                   |
-| `--packager-path` / `packager_path`                             | Path to Shaka Packager binary.                                     | `packager`                                     |
-| `--template-folder-album` / `template_folder_album`             | Template folder for tracks that are part of an album.              | `{album_artist}/{album}`                       |
-| `--template-folder-compilation` / `template_folder_compilation` | Template folder for tracks that are part of a compilation album.   | `Compilations/{album}`                         |
-| `--template-file-single-disc` / `template_file_single_disc`     | Template file for the tracks that are part of a single-disc album. | `{track:02d} {title}`                          |
-| `--template-file-multi-disc` / `template_file_multi_disc`       | Template file for the tracks that are part of a multi-disc album.  | `{disc}-{track:02d} {title}`                   |
-| `--template-folder-episode` / `template_folder_episode`         | Template folder for episodes (podcasts).                           | `Podcasts/{album}`                             |
-| `--template-file-episode` / `template_file_episode`             | Template file for music videos.                                    | `{track:02d} {title}`                          |
-| `--template-folder-music-video` / `template_folder_music_video` | Template folder for music videos                                   | `{artist}/Unknown Album`                       |
-| `--template-file-music-video` / `template_file_music_video`     | Template file for the tracks that are not part of an album.        | `{title}`                                      |
-| `--template-file-playlist` / `template_file_playlist`           | Template file for the M3U8 playlist.                               | `Playlists/{playlist_artist}/{playlist_title}` |
-| `--date-tag-template` / `date_tag_template`                     | Date tag template.                                                 | `%Y-%m-%dT%H:%M:%SZ`                           |
-| `--cover-size` / `cover_size`                                   | Cover size.                                                        | `extra-large`                                  |
-| `--save-cover` / `save_cover`                                   | Save cover as a separate file.                                     | `false`                                        |
-| `--save-playlist` / `save_playlist`                             | Save a M3U8 playlist file when downloading a playlist.             | `false`                                        |
-| `--overwrite` / `overwrite`                                     | Overwrite existing files.                                          | `false`                                        |
-| `--exclude-tags` / `exclude_tags`                               | Comma-separated tags to exclude.                                   | `null`                                         |
-| `--truncate` / `truncate`                                       | Maximum length of the file/folder names.                           | `null`                                         |
-| `--audio-quality`, `-a` / `audio_quality`                       | Audio quality for songs and podcasts.                              | `aac-medium`                                   |
-| `--download-mode`, `-d` / `download_mode`                       | Download mode for songs and podcasts.                              | `ytdlp`                                        |
-| `--remux-mode-audio` / `remux_mode_audio`                       | Remux mode for songs and podcasts.                                 | `ffmpeg`                                       |
-| `--lrc-only`, `-l` / `lrc_only`                                 | Download only the synced lyrics.                                   | `false`                                        |
-| `--no-lrc` / `no_lrc`                                           | Don't download the synced lyrics.                                  | `false`                                        |
-| `--video-format` / `video_format`                               | Video format.                                                      | `mp4`                                          |
-| `--remux-mode-video` / `remux_mode_video`                       | Remux mode for videos.                                             | `ffmpeg`                                       |
-| `--no-config-file`, `-n` / -                                    | Do not use a config file.                                          | `false`                                        |
+### Configuration options
 
-### Tag variables
+| Command-line argument / Config file key | Description | Default |
+| --------------------------------------- | ----------- | ------- |
+| **General** | | |
+| `--wait-interval`, `-w` / `wait_interval` | Wait interval between downloads in seconds | `10` |
+| `--read-urls-as-txt`, `-r` / - | Interpret URLs as paths to text files containing URLs | `false` |
+| `--config-path` / - | Path to config file | `<home>/.votify/config.ini` |
+| `--log-level` / `log_level` | Log level | `INFO` |
+| `--log-file` / `log_file` | Log file path | `null` |
+| `--no-exceptions` / `no_exceptions` | Don't print exceptions | `false` |
+| `--no-config-file`, `-n` / - | Do not use a config file | `false` |
+| **Spotify** | | |
+| `--cookies-path`, `-c` / `cookies_path` | Path to cookies file | `cookies.txt` |
+| `--wvd-path` / `wvd_path` | Path to .wvd file | `device.wvd` |
+| `--prefer-video` / `prefer_video` | Prefer video streams when available | `false` |
+| `--no-drm` / `no_drm` | Don't allow DRM-protected media | `false` |
+| **Output** | | |
+| `--output`, `-o` / `output` | Path to output directory | `./Spotify` |
+| `--temp` / `temp` | Path to temporary directory | `.` |
+| `--save-cover-file` / `save_cover_file` | Save cover as a separate file | `false` |
+| `--save-playlist-file` / `save_playlist_file` | Save a M3U8 playlist file when downloading a playlist | `false` |
+| `--overwrite` / `overwrite` | Overwrite existing files | `false` |
+| `--cover-size` / `cover_size` | Cover size | `extra-large` |
+| `--exclude-tags` / `exclude_tags` | Comma-separated tags to exclude | `null` |
+| `--truncate` / `truncate` | Maximum length of file/folder names | `null` |
+| **Template** | | |
+| `--album-folder-template` / `album_folder_template` | Folder template for album tracks | `{album_artist}/{album}` |
+| `--compilation-folder-template` / `compilation_folder_template` | Folder template for compilation tracks | `Compilations/{album}` |
+| `--no-album-folder-template` / `no_album_folder_template` | Folder template for tracks not in an album | `{artist}/Unknown Album` |
+| `--single-disc-file-template` / `single_disc_file_template` | File template for single-disc album tracks | `{track:02d} {title}` |
+| `--multi-disc-file-template` / `multi_disc_file_template` | File template for multi-disc album tracks | `{disc}-{track:02d} {title}` |
+| `--no-album-file-template` / `no_album_file_template` | File template for tracks not in an album | `{title}` |
+| `--playlist-file-template` / `playlist_file_template` | File template for M3U8 playlists | `Playlists/{playlist_artist}/{playlist_title}` |
+| `--date-tag-template` / `date_tag_template` | Date tag template | `%Y-%m-%dT%H:%M:%SZ` |
+| **Song / Podcast** | | |
+| `--audio-quality`, `-a` / `audio_quality` | Audio quality | `aac-medium` |
+| `--audio-download-mode` / `audio_download_mode` | Download mode for songs and podcasts | `ytdlp` |
+| `--audio-remux-mode` / `audio_remux_mode` | Remux mode for songs and podcasts | `ffmpeg` |
+| `--synced-lyrics-only` / `synced_lyrics_only` | Download only the synced lyrics | `false` |
+| `--no-synced-lyrics-file` / `no_synced_lyrics_file` | Don't download synced lyrics | `false` |
+| **Video** | | |
+| `--video-format` / `video_format` | Video format | `mp4` |
+| `--video-resolution` / `video_resolution` | Video resolution | `1080p` |
+| `--video-remux-mode` / `video_remux_mode` | Remux mode for videos | `ffmpeg` |
+| **Artist** | | |
+| `--artist-media-option` / `artist_media_option` | Auto-select which media type to download from artist URLs | `null` |
+| **Executables** | | |
+| `--aria2c-path` / `aria2c_path` | Path to aria2c binary | `aria2c` |
+| `--curl-path` / `curl_path` | Path to curl binary | `curl` |
+| `--ffmpeg-path` / `ffmpeg_path` | Path to FFmpeg binary | `ffmpeg` |
+| `--mp4box-path` / `mp4box_path` | Path to MP4Box binary | `mp4box` |
+| `--mp4decrypt-path` / `mp4decrypt_path` | Path to mp4decrypt binary | `mp4decrypt` |
+| `--shaka-packager-path` / `shaka_packager_path` | Path to Shaka Packager binary | `packager` |
 
-The following variables can be used in the template folder/file and/or in the `exclude_tags` list:
+### Template variables
 
-- `album`
-- `album_artist`
+The following variables can be used in template folder/file options and in the `exclude_tags` list:
+
+- `album`, `album_artist`
 - `artist`
-- `compilation`
-- `composer`
-- `copyright`
-- `cover`
-- `disc`
-- `disc_total`
+- `compilation`, `composer`, `copyright`, `cover`
+- `disc`, `disc_total`
 - `isrc`
-- `label`
-- `lyrics`
+- `label`, `lyrics`
 - `media_type`
-- `playlist_artist`
-- `playlist_title`
-- `playlist_track`
-- `publisher`
-- `producer`
-- `rating`
-- `release_date`
-- `release_year`
-- `title`
-- `track`
-- `track_total`
+- `playlist_artist`, `playlist_title`, `playlist_track`
+- `producer`, `publisher`
+- `rating`, `release_date`, `release_year`
+- `title`, `track`, `track_total`
 - `url`
 
 ### Cover sizes
 
-- `small`: up to 64px
-- `medium`: up to 300px
-- `large`: up to 640px
-- `extra-large`: up to 2000px
+| Value | Max resolution |
+| ----- | -------------- |
+| `small` | 64px |
+| `medium` | 300px |
+| `large` | 640px |
+| `extra-large` | 2000px |
 
 ### Audio qualities
 
-- General codecs:
-  - `aac-medium`: 128kbps
-  - `aac-high` 256kbps, requires an active premium subscription
-- Podcast only codecs:
-  - `vorbis-high`: 320kbps, requires an active premium subscription
-  - `vorbis-medium`: 160kbps
-  - `vorbis-low`: 96kbps
+| Value | Description |
+| ----- | ----------- |
+| `aac-medium` | AAC 128kbps |
+| `aac-high` | AAC 256kbps — requires an active premium subscription |
+| `vorbis-low` | Vorbis 96kbps — podcasts only |
+| `vorbis-medium` | Vorbis 160kbps — podcasts only |
+| `vorbis-high` | Vorbis 320kbps — podcasts only, requires an active premium subscription |
 
 ### Video formats
 
-- `mp4`: H.264 Up to 1080p with AAC 128kbps.
-- `webm`: VP9 Up to 1080p with Opus 160kbps.
-- `ask`: Prompt to choose available video and audio codecs.
+| Value | Description |
+| ----- | ----------- |
+| `mp4` | H.264 up to 1080p with AAC 128kbps |
+| `webm` | VP9 up to 1080p with Opus 160kbps |
+| `ask` | Prompt to choose available video and audio codecs |
 
 ### Download modes
 
-- `ytdlp`: Default download mode.
-- `aria2c`: Faster alternative to `ytdlp` only applicable to songs and podcasts.
+| Value | Description |
+| ----- | ----------- |
+| `ytdlp` | Default download mode |
+| `aria2c` | Faster alternative |
+| `curl` | Alternative download mode using curl |
 
 ### Video remux modes
 
@@ -238,7 +257,32 @@ The following variables can be used in the template folder/file and/or in the `e
 - `mp4box`
 - `mp4decrypt`
 
-### Credits
+### Video resolutions
+
+- `144p`, `240p`, `360p`, `480p`, `576p`, `720p`, `1080p`
+
+### Artist media options
+
+| Value | Description |
+| ----- | ----------- |
+| `albums` | Auto-select albums |
+| `compilations` | Auto-select compilations |
+| `singles` | Auto-select singles |
+| `videos` | Auto-select music videos |
+
+### Log levels
+
+- `DEBUG`, `INFO`, `WARNING`, `ERROR`
+
+## 📄 License
+
+MIT License — see the [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
+
+I'm generally not reviewing pull requests that change or add features at this time. Only critical bug fixes will be considered. Feel free to open issues for bugs or feature requests.
+
+## 🙏 Credits
 
 - [spotify-oggmp4-dl](https://github.com/DevLARLEY/spotify-oggmp4-dl)
 - [spsync](https://github.com/baltitenger/spsync)
