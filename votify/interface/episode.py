@@ -4,7 +4,7 @@ from .audio import SpotifyAudioInterface
 from .constants import COVER_SIZE_ID_MAP_EPISODE, DEFAULT_EPISODE_DECRYPTION_KEY
 from .enums import MediaType
 from .exceptions import VotifyMediaAudioQualityNotAvailableException
-from .types import DecryptionKey, DecryptionKeyAv, MediaTags, SpotifyMedia
+from .types import DecryptionKey, MediaTags, SpotifyMedia
 
 logger = logging.getLogger(__name__)
 
