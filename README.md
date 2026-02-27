@@ -11,12 +11,12 @@ A command-line app for downloading songs, podcasts and videos from Spotify.
 
 ## ✨ Features
 
-- 🎵 **Songs** — Download songs in AAC 128kbps, or AAC 256kbps with an active premium subscription.
-- 🎙️ **Podcasts** — Download podcasts in Vorbis or AAC.*
-- 🎬 **Videos** — Download podcast videos and music videos.
-- 🎤 **Synced Lyrics** — Download synced lyrics in LRC format.
-- 🧑‍🎤 **Artist Support** — Download an entire discography by providing the artist's URL.
-- ⚙️ **Highly Customizable** — Extensive configuration options for advanced users.
+- 🎵 **Songs** - Download songs in AAC 128kbps, or AAC 256kbps with an active premium subscription.
+- 🎙️ **Podcasts** - Download podcasts in Vorbis or AAC.*
+- 🎬 **Videos** - Download podcast videos and music videos.
+- 🎤 **Synced Lyrics** - Download synced lyrics in LRC format.
+- 🧑‍🎤 **Artist Support** - Download an entire discography by providing the artist's URL.
+- ⚙️ **Highly Customizable** - Extensive configuration options for advanced users.
 
 ***Vorbis codecs are not available at the moment.** Podcasts can only be downloaded in AAC format, even if a Vorbis quality is selected.
 
@@ -25,13 +25,13 @@ A command-line app for downloading songs, podcasts and videos from Spotify.
 ### Required
 
 - **Python 3.10 or higher**
-- **Spotify cookies** — Export your browser cookies in Netscape format while logged in at the Spotify homepage:
+- **Spotify cookies** - Export your browser cookies in Netscape format while logged in at the Spotify homepage:
   - Firefox: [Export Cookies](https://addons.mozilla.org/addon/export-cookies-txt)
   - Chromium-based browsers: [Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc)
 - **FFmpeg** on your system PATH. Recommended builds:
   - Windows: [AnimMouse's FFmpeg Builds](https://github.com/AnimMouse/ffmpeg-stable-autobuild/releases)
   - Linux: [John Van Sickle's FFmpeg Builds](https://johnvansickle.com/ffmpeg/)
-- **[.wvd file](https://github.com/hyugogirubato/KeyDive)** — Required to decrypt music videos and AAC songs. Use [KeyDive](https://github.com/hyugogirubato/KeyDive) to extract it from an Android device. Files from emulated devices may not work.
+- **[.wvd file](https://github.com/hyugogirubato/KeyDive)** - Required to decrypt music videos and AAC songs. Use [KeyDive](https://github.com/hyugogirubato/KeyDive) to extract it from an Android device. Files from emulated devices may not work.
 
 > [!WARNING]
 > **Some users have reported that Spotify suspended their accounts after using Votify.** Use it at your own risk.
@@ -44,11 +44,11 @@ A command-line app for downloading songs, podcasts and videos from Spotify.
 
 Add these tools to your system PATH or specify their paths via command-line arguments or the config file:
 
-- **[MP4Box](https://gpac.io/downloads/gpac-nightly-builds/)** — Required when using `mp4box` as remux mode.
-- **[Shaka Packager](https://github.com/shaka-project/shaka-packager/releases/latest)** — Required for `webm` video format and music video downloads.
-- **[mp4decrypt](https://www.bento4.com/downloads/)** — Required when using `mp4box` or `mp4decrypt` as remux mode.
-- **[aria2c](https://github.com/aria2/aria2/releases)** — Required when using `aria2c` as download mode.
-- **[cURL](https://curl.se/download.html)** — Required for when using `curl` as download mode.
+- **[MP4Box](https://gpac.io/downloads/gpac-nightly-builds/)** - Required when using `mp4box` as remux mode.
+- **[Shaka Packager](https://github.com/shaka-project/shaka-packager/releases/latest)** - Required for `webm` video format and music video downloads.
+- **[mp4decrypt](https://www.bento4.com/downloads/)** - Required when using `mp4box` or `mp4decrypt` as remux mode.
+- **[aria2c](https://github.com/aria2/aria2/releases)** - Required when using `aria2c` as download mode.
+- **[cURL](https://curl.se/download.html)** - Required when using `curl` as download mode.
 
 ## 📦 Installation
 
@@ -284,7 +284,7 @@ Tags usable in the `exclude_tags` list only:
 
 ## 📄 License
 
-MIT License — see the [LICENSE](LICENSE) file for details.
+MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🤝 Contributing
 
