@@ -216,6 +216,6 @@ async def main(config: CliConfig):
                     )
             finally:
                 download_index += 1
-                asyncio.sleep(config.wait_interval)
+                await asyncio.sleep(config.wait_interval)
 
     logger.info(f"Finished with {error_count} error(s)")
